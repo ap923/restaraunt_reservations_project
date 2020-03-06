@@ -1,0 +1,59 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: rgb(255, 0, 0);
+  font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+}
+
+li a:hover {
+  background-color: #111;
+}
+</style>
+</head>
+  <body>
+
+    <ul>
+      <li style ="margin-left: 10px;"><a href = "/./" >Home</a></li>
+      <li><a href = "/restraunts/" >Restaurants</a></li>
+      
+      {% if request.user.is_staff %}
+      
+        <li><a href = "/reservations/" >Reservations</a></li>
+
+      {% endif %}
+      
+      {% if request.user.is_authenticated %}
+
+        <li><a href = "/accounts/logout/" >Logout</a></li>
+
+      {% else %}
+
+        <li><a href = "/accounts/signup/" >Sign Up</a></li>
+        <li><a href = "/accounts/login/" >Login</a></li>
+        
+      {% endif %}
+    </ul>
+
+  </body>
+</html>

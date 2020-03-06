@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<html>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+ 
+<body>
+<h1 align="center" >  Top Restaurants</h1>
+<div class="container">
+	<div class="row">
+		<div class="MultiCarousel" data-items="1,3,5" data-slide="1" id="MultiCarousel">
+            <div class="MultiCarousel-inner">
+            
+
+                {% for instance in object_list %}
+                {% if instance.seatsAvailable > 0 %}
+                <div class="item">
+                
+                        <div class="w3-card-4" style="width: 95%;  box-shadow: 0 4px 8px 0 rgba(255, 111, 222, 11.2), 0 6px 20px 0 rgba(255, 0, 0, 11.2);">
+                        <header class="w3-container" style = "background:red; color:white">
+                             <h3><a href = "restraunts/{{ instance.id }}">{{ instance.name }}</a></h3>
+                        </header>
+                            <br>
+                           
+                            <p>City : {{ instance.city }}</p>
+                            <p>State : {{ instance.state }}</p>
+                            <p>Cuisine : {{ instance.cuisine }}</p>
+                            <p>Price range: {{ instance.priceRange }}</p>
+                            <br></br>
+                        </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+                                 
+            </div>
+         
+            <button class="btn btn-primary leftLst"><</button>
+            <button class="btn btn-primary rightLst">></button>
+            
+        </div>
+     
+	</div>
+</div>
+        
+
+</body>
+ 
+<script>
+// SHORTCUT: used this link and modified a little
+ //https://www.developpez.net/forums/d1943540/javascript/general-javascript/optimisation-multi-item-carousel/
+$(document).ready(function () {
+    var itemsMainDiv = ('.MultiCarousel');
+    var itemsDiv = ('.MultiCarousel-inner');
+    var itemWidth = "";
+ 
+    $('.leftLst, .rightLst').click(function () {
+        var condition = $(this).hasClass("leftLst");
+        if (condition)
+            click(0, this);
+        else
+            click(1, this)
+    });
+ 
+    ResCarouselSize();
+ 
+    $(window).resize(function () {
+        ResCarouselSize();
+    });
+ 
+    //this function defines the size of the items
+    function ResCarouselSize() {
+        var incno = 0;
+        var dataItems = ("data-items");
+        var itemClass = ('.item');
+        var id = 0;
+        var btnParentSb = '';
+        var itemsSplit = '';
+        var sampwidth = $(itemsMainDiv).width();
+        var bodyWidth = $('body').width();
+        $(itemsDiv).each(function () {
+            id = id + 1;
+            var itemNumbers = $(this).find(itemClass).length;
+            btnParentSb = $(this).parent().attr(dataItems);
+            itemsSplit = btnParentSb.split(',');
+            $(this).parent().attr("id", "MultiCarousel" + id);
+ 
+ 
+           if (bodyWidth >= 768) {
+                incno = itemsSplit[1];
+                itemWidth = sampwidth / incno;
+            }
+            else {
+                incno = itemsSplit[0];
+                itemWidth = sampwidth / incno;
+            }
+
+            $(this).css({ 'transform': 'translateX(0px)', 'width': itemWidth * itemNumbers });
+            $(this).find(itemClass).each(function () {
+                $(this).outerWidth(itemWidth);
+            });
+ 
+            $(".leftLst").addClass("over");
+            $(".rightLst").removeClass("over");
+ 
+        });
+    }
+ 
+
+    //this function used to move the items
+    function ResCarousel(e, el, s) {
+        var leftBtn = ('.leftLst');
+        var rightBtn = ('.rightLst');
+        var translateXval = '';
+        var divStyle = $(el + ' ' + itemsDiv).css('transform');
+        var values = divStyle.match(/-?[\d\.]+/g);
+        var xds = Math.abs(values[4]);
+        if (e == 0) {
+            translateXval = parseInt(xds) - parseInt(itemWidth * s);
+            $(el + ' ' + rightBtn).removeClass("over");
+ 
+            if (translateXval <= itemWidth / 2) {
+                translateXval = 0;
+                $(el + ' ' + leftBtn).addClass("over");
+            }
+        }
+        else if (e == 1) {
+            var itemsCondition = $(el).find(itemsDiv).width() - $(el).width();
+            translateXval = parseInt(xds) + parseInt(itemWidth * s);
+            $(el + ' ' + leftBtn).removeClass("over");
+ 
+            if (translateXval >= itemsCondition - itemWidth / 2) {
+                translateXval = itemsCondition;
+                $(el + ' ' + rightBtn).addClass("over");
+            }
+        }
+        $(el + ' ' + itemsDiv).css('transform', 'translateX(' + -translateXval + 'px)');
+    }
+ 
+    //It is used to get some elements from btn
+    function click(ell, ee) {
+        var Parent = "#" + $(ee).parent().attr("id");
+        var slide = $(Parent).attr("data-slide");
+        ResCarousel(ell, Parent, slide);
+    }
+ 
+});
+</script>
+ 
+</html>
+<style>
+.MultiCarousel { 
+float: left; overflow: hidden; padding: 25px; width: 100%; position:relative; height: 100%;
+}
+.MultiCarousel .MultiCarousel-inner { 
+transition: 1s ease all; float: left; 
+}
+.MultiCarousel .MultiCarousel-inner .item { 
+float: left;
+}
+.MultiCarousel .MultiCarousel-inner .item > div {
+text-align: center; padding:10px; margin:15px; background:#FFFFFF; color:#666; width: 205px;
+
+}
+.MultiCarousel .leftLst, .MultiCarousel .rightLst { 
+position:absolute; border-radius:50%;top:calc(50% - 20px); 
+}
+.MultiCarousel .leftLst {
+box-shadow: 0px 0px 0px 0.2rem rgba(255,255,255,0.5); 
+border-color:white;
+color:white;
+background:red;
+left:0;
+
+}
+
+.MultiCarousel .rightLst {
+box-shadow: 0px 0px 0px 0.2rem rgba(255,255,255,0.5);
+border-color:white;
+color:white;
+background:red;
+right:0; 
+}
+.MultiCarousel .leftLst.over, .MultiCarousel .rightLst.over { 
+pointer-events: none; background:#ccc; 
+}
+.titre{
+margin-left:30px;
+}
+</style>
+
+
+
+{% endblock %}
