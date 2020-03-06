@@ -1,0 +1,42 @@
+{% for obj in dates %}
+
+<a href = "#{{ obj.date }}" style="margin-left: 20px;">{{ obj.date }}</a>
+
+{% endfor %}
+<br>
+
+{% for key,values in dates_and_times.items %}
+
+
+<p  id ="{{ key.reservationDate.date }}" style="margin-left: 20px;"></p>
+<br>
+<br>
+
+<tr>
+ 
+  <td>{{key.reservationDate.date }}</td> <br>
+  {% for v in values %}
+  
+  <br>
+  
+  <a >{{ v.timeIntervalBegin }} - {{ v.seatsLeft }}</a>
+  <br>
+
+
+  {% endfor %}
+ 
+</tr>
+
+<br>
+<br>
+<br>
+
+{% endfor %}
+
+<p style="margin-left: 20px;">Address : {{ object.address }}</p>
+<p style="margin-left: 20px;">City : {{ object.city }}</p>
+<p style="margin-left: 20px;">State : {{ object.state }}</p>
+<p style="margin-left: 20px;">Cuisine : {{ object.cuisine }}</p>
+<p style="margin-left: 20px;">Price range : {{ object.priceRange }}</p>
+<p style="margin-left: 20px;">Start Time : {{ object.beginTime}}</p>
+<p style="margin-left: 20px;">End Time : {{ object.endTime }}</p>

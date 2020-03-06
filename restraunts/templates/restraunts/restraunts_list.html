@@ -1,0 +1,67 @@
+{% extends 'base.html' %} 
+{% block content %}
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
+  <form method="GET" action="{% url 'restraunts:searchRest' %}">
+    <input name="q" value="{{request.GET.q}}" placeholder="Search.." style="margin-left: 20px;" />
+    <button
+      class="btn btn-success"
+      type="submit"
+      style=" background-color:red; border-color:black"
+    >
+      Search
+    </button> 
+
+    {% if request.user.is_staff %}
+      <a href ="create/" style = "margin-left:20px;"> Add a new restaurant</a>
+    {% endif %}
+
+  </form>
+
+  {% for obj in results %} 
+
+  <div class="w3-container">
+    </br>
+      <div class="w3-card-4" style="width:30%;  box-shadow: 0 4px 8px 0 rgba(255, 111, 222, 11.2), 0 6px 20px 0 rgba(255, 0, 0, 11.2);">
+        <header class="w3-container" style = "background:red; color:white">
+          <h1 align="center"><a href="../{{obj.id}}">{{obj.name}}</a></h1>
+        </header>
+
+        <div class="w3-container">
+          <br>
+          <p>City : {{ obj.city }}</p>
+          <p>State : {{ obj.state }}</p>
+          <p>Cuisine : {{ obj.cuisine }}</p>
+          <p>Price range: {{ obj.priceRange }}</p>
+        </div>
+
+      </div>
+    </div>
+    </br>
+  {% endfor %}
+
+  {% for instance in object_list %} 
+
+    <div class="w3-container">
+      </br>
+
+        <div class="w3-card-4" style="width:30%;  box-shadow: 0 4px 8px 0 rgba(255, 111, 222, 11.2), 0 6px 20px 0 rgba(255, 0, 0, 11.2);">
+          <header class="w3-container" style = "background:red; color:white">
+            <h1 align = "center"><a href="{{instance.id}}">{{instance.name}}</a></h1>
+          </header>
+
+          <div class="w3-container">
+          <br>
+            <p>City : {{ instance.city }}</p>
+            <p>State : {{ instance.state }}</p>
+            <p>Cuisine : {{ instance.cuisine }}</p>
+            <p>Price range: {{ instance.priceRange }}</p>
+          </div>
+
+        </div>
+      </br>
+    </div>
+      
+  {% endfor %} 
+{% endblock %}

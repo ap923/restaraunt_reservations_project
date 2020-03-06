@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <script>
+      $( function() {
+        var date = $('#datepicker').datepicker({ dateFormat: 'yy-mm-d' }).val();
+        $( "#datepicker" ).datepicker();
+      } );
+  </script>
+
+  <p style="margin-left: 20px;">Name : {{ object.name }}</p>
+  <p style="margin-left: 20px;">Address : {{ object.address }}</p>
+  <p style="margin-left: 20px;">City : {{ object.city }}</p>
+  <p style="margin-left: 20px;">State : {{ object.state }}</p>
+  <p style="margin-left: 20px;">Cuisine : {{ object.cuisine }}</p>
+  <p style="margin-left: 20px;">Price range : {{ object.priceRange }}</p>
+  <p style= "margin-left: 20px;">Start Time : {{ object.beginTime}}</p>
+  <p style= "margin-left: 20px;">End Time : {{ object.endTime }}</p>
+
+      <!-- We don't want to print out how many seats are available
+                                                      because if there a lot of empty seats the customer might not reserve-->
+      
+  <form action = {{object.id}} method = "POST">{% csrf_token %}
+    <p style="font-size:130%; margin-left: 20px;">Date: <input type="text" style = "width: 100px;  " id ="datepicker" name = "when_reserved"  autocomplete="off"></p>
+    <button class = "btn btn-success" style=" background-color:red; border-color:black ; margin-left: 20px;" > Continue </button>
+  </form>
+    <br>
+    <h1 style ="margin-left: 20px;" >Few seats left available. Reserve now!</h1>
+
+{% endblock %}

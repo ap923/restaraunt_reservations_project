@@ -1,0 +1,15 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+
+  <h1>Delete: {{ object.name }}</h1>
+
+  <form action="." method="POST"> {%csrf_token %}
+
+    <h1>Do you want to delete the restaurant " {{ object.name }}"?</h1>
+    <button class="button">Yes</button>
+  </form>
+
+{% endblock %}
+
+<!--If it is a single owner for all the restraunts, should we even be able to add restraunts and delete them, given that it is not going to change drastically maybe we should add it as an admin and make updates on asking-->

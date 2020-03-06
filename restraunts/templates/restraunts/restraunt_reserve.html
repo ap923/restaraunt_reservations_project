@@ -1,0 +1,17 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+
+  <h1>Making a reservation for {{ restraunt_name }}</h1>
+  <br>
+
+  <form action="." method="POST">{% csrf_token %} 
+    {{ form.as_p }}
+
+    <button class = "btn btn-success" style=" background-color:red; border-color:black ; " >Save</button>
+  </form>
+  {{ when_reserved }}
+
+  {{pr}}
+
+{% endblock %}
