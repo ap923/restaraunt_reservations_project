@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $( function() {
+      var date = $('#datepicker').datepicker({ dateFormat: 'yy-mm-d' }).val();
+      $( "#datepicker" ).datepicker();
+    } );
+    
+</script>
+
+
+<form method="GET" action="?">
+
+<p>Date: <input type="text" style = "width: 100px" id ="datepicker" name = "reserved"  autocomplete="off"> <input name="q" value="{{ request.GET.q }}" placeholder="Search.." />  <button
+    class="btn btn-success"
+    type="submit"
+    style=" background-color:red; border-color:black"
+  >
+    Search
+  </button></p>
+
+<style>
+a {
+  
+  color: red;
+}
+p {
+ 
+ 
+  margin-left:20px;
+  color: rgba(156, 11, 11, 0.959);
+}
+
+
+</style>
+
+
+</form>
+
+
+{% for obj in results %}
+
+<p>{{ obj.id }} - <a href = '{{ obj.get_absolute_url}}'>{{ obj.first_name }}</a></p>
+
+
+{% endfor %}
+
+
+{% for instance in object_list %}
+    {% if request.user.is_staff %}
+    <p>{{ instance.id }} - <a href = '{{ instance.get_absolute_url}}'>{{ instance.first_name }}</a></p>
+    {% endif %}
+{% endfor %}
+
+
+{% endblock %}

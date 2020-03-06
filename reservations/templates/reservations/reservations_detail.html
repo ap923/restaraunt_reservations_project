@@ -1,0 +1,27 @@
+{% extends 'base.html' %} 
+{% block content %}
+    <h1 style ="margin-left: 20px;">Reservation Information: </h1>
+    <br>
+    <p style ="margin-left: 20px;">First Name : {{ object.first_name }}</p>
+    <p style ="margin-left: 20px;">Last Name : {{ object.last_name }}</p>
+
+    <p style ="margin-left: 20px;">Email : {{ object.email }}</p>
+    <p style ="margin-left: 20px;">Phone : {{ object.phone }}</p>
+
+    <p style ="margin-left: 20px;">Restraunt : {{ object.restraunt_reserved }}</p>
+
+    <p style ="margin-left: 20px;">Time of reservation : {{ object.time_of_reservation }}</p>
+    <p style ="margin-left: 20px;">Time when the user reserved(UTC) : {{ object.time_when_reserved }}</p>
+
+    <p style ="margin-left: 20px;">Comments : {{ object.reservation_comments }}</p>
+    <br>
+        
+    <button class = "btn btn-success onclick" onclick   = "location.href='update/'" style="margin-left:20px ; background-color:red; border-color:black" > Update </button>
+    <button class = "btn btn-success onclick" onclick   = "location.href='delete/'" style=" background-color:red; border-color:black" >Delete</button>
+
+    {% if request.user.is_staff %}
+
+        <button class = "btn btn-success onclick" onclick  = "location.href='confirm/'" style=" background-color:red; border-color:black" >Confirm</button>
+
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form action = '.' method = 'POST'>{% csrf_token %}
+    
+    <h1>Are you sure you want to delete reservation : "{{ object.id }}"</h1>
+    <button class = "button" > Yes </button>
+    <button class = "button" action = "../">Cancel</a>
+    </h1>
+
+</form>
+
+{% endblock %}

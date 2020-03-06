@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    {% if request.user.is_staff %}
+        <h1>Reservation succesfully confirmed!</h1>
+        <a>Delete the reservation?</a>
+        <button class = "button" onclick = "location.href='../delete/'">Delete</a>
+        <button class = "button" onclick = "location.href='../'">Go back</a>
+    {% endif %}
+
+{% endblock %}
